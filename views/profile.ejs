@@ -1,0 +1,59 @@
+<% include partials/header %>
+<br>
+<br>
+<br>
+<!-- <h1>hh</h1> -->
+
+<div class="container">
+<h2>Hello <%= user.username %></h2>
+
+<h3>Order History</h3>
+
+
+<% orders.forEach(function(order){ %>
+
+<div class="card mb-3" style="width: 70%;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img class="card-img" src="/images/<%= order.car.image %>" style="width:180px; height:150px;"/>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <!-- <h4 class="card-title">Order Details</h5> -->
+        
+        <div id="carinfo" class="row align-items-center" style="font-size: 0.9rem">
+			<div class="col-md-6">
+			  <p><strong>Make: </strong><%= order.car.make %></p>
+			  <p><strong>Model: </strong><%= order.car.model %></p>
+			  <p><strong>Pickup Date: </strong><%= order.startdate %></p>
+			  <p><strong>Return Date: </strong><%= order.enddate %></p>
+
+			</div>
+			<div class="col-md-6">
+			  <p><strong>Passengers: </strong><span><i style="font-size: 0.9rem" class="far fa-user"></i> </span><%= order.car.passenger %></p>
+			  
+			  <p><strong>Daily Price: </strong> $<%= order.car.price %>/day</p>
+			  <p><strong>Total Price: </strong> $<%= order.price %></p>
+
+			</div>
+		</div>
+      </div>
+    </div>
+  </div>
+</div>
+<% }); %>
+
+<a href="/cars/1" type="submit" class="btn btn-primary">Back to Home</a>
+</div>
+
+
+
+
+<br><br><br>
+
+
+
+
+
+
+<% include partials/footer %>

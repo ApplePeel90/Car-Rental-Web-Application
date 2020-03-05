@@ -1,0 +1,60 @@
+<% include partials/header %>
+<br>
+<br>
+<br>
+<!-- <h1>hh</h1> -->
+
+<div class="container">
+	<h1>Hello <%= user.username%></h1>
+	<h2>Here is your Wishlist</h2>
+
+	<% wishlists.forEach(function(wl){ %>
+		<div class="card mb-3" style="width: 70%;">
+		  <div class="row no-gutters">
+		    <div class="col-md-4">
+		    	<a href="/cars/cars/<%= wl.car._id %>">
+		    		<img class="card-img" src="/images/<%= wl.car.image %>" style="width:180px; height:150px;"/>
+		    	</a>
+		      
+		    </div>
+		    <div class="col-md-8">
+		      <div class="card-body">
+		        <!-- <h4 class="card-title">Order Details</h5> -->
+		        
+		        <div id="carinfo" class="row align-items-center" style="font-size: 0.9rem">
+					<div class="col-md-6">
+					  <p><strong>Make: </strong><%= wl.car.make %></p>
+					  <p><strong>Model: </strong><%= wl.car.model %></p>
+					  
+					</div>
+					<div class="col-md-6">
+					  <p><strong>Passengers: </strong><span><i style="font-size: 0.9rem" class="far fa-user"></i> </span><%= wl.car.passenger %></p>
+					  
+					  <p><strong>Daily Price: </strong> $<%= wl.car.price %>/day</p>
+
+
+					</div>
+					<form action="/<%= user._id%>/wishlist?_method=DELETE" method="POST">
+					  <input  name="wlcarid" id="wlcarid" value="<%= wl.car._id %>" type="hidden" /><br>
+					  <button type="submit" class="btn btn-danger">Remove from Wishlist</button>
+					</form>
+				</div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+	<% }); %>
+
+
+
+
+
+<a href="/cars/1" type="submit" class="btn btn-primary">Back to Home</a>
+
+</div>
+
+
+
+<br><br><br>
+<% include partials/footer %>

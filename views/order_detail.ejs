@@ -1,0 +1,61 @@
+<% include partials/header %>
+
+<br>
+<br>
+<br>
+<br>
+
+<div class ="container">
+<h1>Order Details</h1>
+
+
+
+<div class="form-group">
+	<p>Please confirm the infomation about your car:</p>
+</div>
+
+<!-- <form action="/cars" method="POST"> -->
+<div class="card mb-3" style="max-width: 90%;">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img class="card-img" src="/images/<%= car.image_l %>"/>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <!-- <h4 class="card-title">Order Details</h5> -->
+        
+        <div id="carinfo" class="row align-items-center">
+			<div class="col-md-6">
+			  <p><strong>Make: </strong><%= car.make %></p>
+			  <p><strong>Model: </strong><%= car.model %></p>
+			  <p><strong>Pickup Date: </strong><%= from %></p>
+			  <p><strong>Return Date: </strong><%= to %></p>
+
+			</div>
+			<div class="col-md-6">
+			  <p><strong>Passengers: </strong><span><i style="font-size: 1rem" class="far fa-user"></i> </span><%= car.passenger %></p>
+			  <p><strong>Type: </strong> <%= car.type %></p>
+			  <p><strong>Daily Price: </strong> $<%= car.price %>/day</p>
+			  <p><strong>Total Price: </strong> $<%= price %></p>
+
+			</div>
+		</div>
+
+
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+	<a class="btn btn-info" href="/cars/1">Back to Home</a>
+<!-- </form> -->
+
+<br><br><br>
+
+
+
+
+
+<% include partials/footer %>

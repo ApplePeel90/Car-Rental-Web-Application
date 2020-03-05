@@ -1,0 +1,100 @@
+<% include partials/header %>
+
+<div class="jumbotron">
+  <br>
+  <h2 class="display-4" sytle="margin-top: 20">Welcome to Gogo Rent</h2>
+  <p class="lead">This is a list of most popular cars</p>
+  <hr class="my-4">
+
+  <% if(user && user.isAdmin) { %>
+    <a class="btn btn-info btn-lg" href="cars/new" role="button">Add a new car</a>
+  <% } %>
+  <p> </p>
+
+ 
+
+
+  
+
+  <form action="/cars" method="GET" class="form-inline" id="car-search">
+
+    <div class="form-group">
+      <input type="text" name="search" placeholder="Car search..." class="form-control">
+      <select  name="type" id="setected_type">
+        <option value="all">All</option>
+        <option value="Economy">Economy</option>
+        <option value="Compact">Compact</option>
+        <option value="Intermediate">Intermediate</option>
+        <option value="Full Size">Full Size</option>
+        <option value="Standard">Standard</option>
+        <option value="SUV">SUV</option>
+        <option value="Luxury">Luxury</option>
+        <option value="Van">Van</option>
+      </select>
+    </div>
+  </form>
+</div>
+
+
+
+<div class="container">
+
+ <div class="row" id="car-grid">
+  <% cars.forEach( car => { %>
+
+    <% if (user && user.isAdmin) {%>
+      <div class="md-col-4" style="margin-left: 5%">
+      <a href="cars/<%= car._id %>">
+        <img src="../images/<%= car.image %>" style="width:290px; height:230px;"/>
+      </a>
+      
+      <div class="caption" style="text-align: center; font-size: 1.2rem" ><a href="cars/<%= car._id %>"> <%= car.model %></a></div>
+     </div>
+    <% } else { %>
+
+    
+      <% if (car.count > 0) {%>
+
+         <div class="md-col-4" style="margin-left: 5%">
+            <a href="cars/<%= car._id %>">
+              <img src="../images/<%= car.image %>" style="width:290px; height:230px;"/>
+            </a>
+            
+            <div class="caption" style="text-align: center; font-size: 1.2rem"><a href="cars/<%= car._id %>"> <%= car.model %></a></div>
+         </div>
+      <% } %>
+   <% } %>
+
+  <% }); %>
+ </div>
+
+
+
+
+</div>
+<br>
+<br>
+
+<div class="container" style="text-align: center; margin: auto">
+    <% if (currentPage ==1 && numOfPages>1) {%>
+      <%= parseInt(currentPage)  %> <span>   </span><a href="/cars/<%= parseInt(currentPage) + 1 %>"><i class="fas fa-chevron-right"></i></a>
+      
+    <%} else if(currentPage < numOfPages) { %>
+    <a href="/cars/<%= parseInt(currentPage) - 1 %>">
+        <i class="fas fa-chevron-left"></i></a>
+        <%= parseInt(currentPage)  %> <span>   </span>
+      <a href="/cars/<%= parseInt(currentPage) + 1 %>">
+          <i class="fas fa-chevron-right"></i></a>
+    <%} else if(currentPage == numOfPages && numOfPages > 1) { %>
+    <a href="/cars/<%= parseInt(currentPage) - 1 %>">
+        <i class="fas fa-chevron-left"></i></a>
+        <%= parseInt(currentPage)  %> <span>   </span>
+      
+    <% } %>
+</div>
+
+
+<br>
+<br>
+<br>
+<% include partials/footer %>

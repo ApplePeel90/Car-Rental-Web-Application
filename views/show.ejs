@@ -1,0 +1,73 @@
+<% include partials/header %>
+
+
+
+<div class="vehicle-detail-band-wrapper">
+ <section class="band full-bleed vehicle-detail-band">
+  <div class="vehicle-detail-band__background">
+   <img class="vehicle-detail-band__image" src="/images/backgroundband.jpg">
+  </div>
+
+  <div>
+   <img class="vehicle-detail-band__car" src="/images/<%= car.image_l %>"/>
+  </div>
+ </section>
+</div>
+
+<br>
+<br>
+<div class ="container">
+  <div id="carinfo" class="row align-items-center">
+    <div style="margin-bottom: 20px" class="col-md-6">
+      <p><strong>Make: </strong><%= car.make %></p>
+      <p><strong>Model: </strong><%= car.model %></p>
+    </div>
+    <div style="margin-bottom: 20px" class="col-md-6">
+      <p><strong>Passenger: </strong><span><i style="font-size: 1rem" class="far fa-user"></i> </span><%= car.passenger %></p>
+     
+      <p><strong>Price: </strong> $<%= car.price %>/day</p>
+    </div>
+  </div>
+  <p style="font-size: 1.2rem"><%= car.description %></p> 
+
+  <% if(user && user.isAdmin) { %>
+   <a class="btn btn-outline-info" href="/cars/<%= car._id %>/edit" role="button">Edit the car info</a>
+
+
+
+
+
+  <% } %>
+
+
+
+
+
+<% if(user){%>
+   <form style="display: inline" action="/<%= user._id %>/wishlist" method="POST">
+
+    <input  name="like" id="like" value="<%= car._id %>" type="hidden" /><br>
+    <button  type="submit" class="btn btn-outline-info">Add to Wishlist</button>
+
+   </form>
+<%}%>
+
+<br><br>
+  <a class="btn btn-outline-info" href="/cars/<%= car._id %>/rent" role="button">Rent Today!</a>
+
+  
+  
+
+  <a class="btn btn-outline-info" role="buttton" href="/cars/1">Back to list</a>
+
+</div>
+
+
+
+
+
+
+
+
+<br><br><br>
+<% include partials/footer %>

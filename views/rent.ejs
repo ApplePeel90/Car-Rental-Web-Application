@@ -1,0 +1,107 @@
+<% include partials/header %>
+
+<div class="container">
+	<h2>Rent the car today!</h2>
+	<br>
+	<p><img src="/images/<%= car.image %>" /></p>
+	<br>
+	<h4>With your <%= car.type %> car:</h4>
+	<p><%= car.description %></p>
+	<br>
+
+<form action="/cars/<%= car._id %>/order_detail" method="POST">
+	<div class="row">
+		<div class="col-3">
+			<label for="#from">Pick-up Date</label><br>
+			<input type="text" id="from"  name="from"/><br>
+		</div>
+
+		<div class="col-3">
+			<label for="#to">Return Date</label><br>
+			<input type="text" name="to" id="to"/><br>
+		</div>
+		
+
+	</div>
+		
+
+	<div class="row">
+		<div class="col-3">
+			<label for="#calculated">Duration</label> <br>
+			<input type="text" style="border:none"  name="calculated" id="calculated"/><br>
+		</div>
+
+		<div class="col-3">
+			<label for="#price">Total Price</label> <br>
+			<input style="border:none" type="text" name="price" id="price"/><br>
+
+		</div>
+		
+
+	</div>
+
+	<div>
+		<br>
+		<button type="submit" class="btn btn-info">Check Out</buton>
+		<br>
+	</div>
+</form>
+	
+
+
+</div>
+<br><br><br><br><br><br>
+<script type="text/javascript">
+	
+	$(document).ready(function() {
+  $( "#from" ).datepicker({
+    altField: "#alternate",
+    altFormat: "DD, d MM, yy",
+    minDate: new Date(),
+    maxDate: "+60D",
+    onSelect: function(selected) {
+      $("#to").datepicker("option","minDate", selected);
+      calcDiff();
+    }
+  });
+
+  $( "#to" ).datepicker({
+    altField: "#alternate1",
+    altFormat: "DD, d MM, yy",
+    minDate: new Date( (new Date()).getTime() + 86400000 ),
+    maxDate:"+60D",
+    onSelect: function(selected) {
+      $("#from").datepicker("option","maxDate", selected);
+      calcDiff();
+    }
+  });
+
+  function calcDiff() {
+    var date1 = $('#from').datepicker('getDate');
+    var date2 = $('#to').datepicker('getDate');
+    console.log(date2);
+    var diff = 0;
+    $('#datesbetween').empty();
+    if (date1 && date2) {
+      diff = Math.floor((date2.getTime() - date1.getTime()) / 86400000);
+      $('#calculated').val(diff+1);
+      $("#price").val((diff+1) * <%= car.price %>);
+
+        // for(var d = date1.getTime(); d <= date2.getTime(); d = d + 86400000){
+        //     $('#datesbetween').append( '<br>' + $.datepicker.formatDate( "d MM, yy", new Date(d) ) );
+        // }
+    }
+    
+  }
+});
+
+
+</script>
+
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="Stylesheet" type="text/css" />
+
+<% include partials/footer %>
